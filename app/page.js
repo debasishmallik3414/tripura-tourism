@@ -107,7 +107,6 @@ export default function Home() {
     className="absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-5xl font-semibold text-gray-100 animate-fadeOut">
     Welcome to Tripura
   </h1>
-
   {/* Slider */}
   <Swiper
     modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -291,7 +290,7 @@ export default function Home() {
 
               {/* Book Now Button */}
               <Link
-                href={`/book/${hotel.id}`}
+                href={`/details/${hotel.id}`}
                 className="bg-green-600 text-gray-50 px-4 py-2 mt-4 rounded-md hover:bg-green-700 transition inline-block">
                 Book Now
               </Link>
@@ -363,7 +362,7 @@ export default function Home() {
 </section>
 {/* Contact */}
 <section id="contact" className="py-12 px-4 bg-gray-50">
-  <h2 className="text-2xl font-semibold text-center mb-8 text-gray-800">Contact Us</h2>
+  <h2 className="text-2xl font-semibold text-center mb-8 text-gray-800">Get in touch</h2>
 
   <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
     {/* Left - Map */}
@@ -381,9 +380,9 @@ export default function Home() {
     </div>
     {/* Right - Contact Form */}
     <form id='contact' className="w-full space-y-4 bg-white p-6 rounded-lg shadow-md">
-      <input type="text" placeholder="Your Name" className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <input type="email" placeholder="Your Email" className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <textarea rows="4" placeholder="Your Message" className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      <input type="text" placeholder="Your Name" className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
+      <input type="email" placeholder="Your Email" className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" />
+      <textarea rows="4" placeholder="Your Message" className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"></textarea>
       <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-800 transition">
         Send Message
       </button>
@@ -426,9 +425,9 @@ export default function Home() {
     <div>
       <h4 className="text-lg font-semibold mb-4 text-white">Blogs</h4>
       <ul className="space-y-2 text-sm">
-        <li><a href="#" className="hover:text-yellow-400 transition">Top 10 Places to Visit</a></li>
-        <li><a href="#" className="hover:text-yellow-400 transition">Cultural Festivals of Tripura</a></li>
-        <li><a href="#" className="hover:text-yellow-400 transition">Hidden Gems for Nature Lovers</a></li>
+        <li><a href="#" className="hover:text-green-600 transition">Top 10 Places to Visit</a></li>
+        <li><a href="#" className="hover:text-green-600 transition">Cultural Festivals of Tripura</a></li>
+        <li><a href="#" className="hover:text-green-600 transition">Hidden Gems for Nature Lovers</a></li>
       </ul>
     </div>
 
@@ -439,7 +438,7 @@ export default function Home() {
         <li>📍 Agartala, Tripura</li>
         <li>📞 +91 98765 43210</li>
         <li>✉️ support@tripuratourism.in</li>
-        <li><a href="#contact" className="hover:text-yellow-400 transition">Contact Form</a></li>
+        <li><a href="#contact" className="hover:text-green-600 transition">Get in Touch</a></li>
       </ul>
     </div>
 
