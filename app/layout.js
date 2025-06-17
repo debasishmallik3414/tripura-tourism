@@ -1,7 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import './styles/main.css';
-import Navbar from './components/Navbar';
+import "./styles/main.css";
+import "remixicon/fonts/remixicon.css";
+// In your main layout or _app.jsx
+// import "leaflet/dist/leaflet.css";
+
+import Navbar from "./components/Navbar";
 // import "./signin";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +28,8 @@ export default function RootLayout({ children }) {
       <head>
         <script src="https://cdn.tailwindcss.com"></script>
         <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
         />
       </head>
       <body
