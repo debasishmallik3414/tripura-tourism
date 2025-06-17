@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-// import LocationMap from "./components/LocationMap";
+ import LocationMap from "@/components/LocationMap";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -365,10 +365,12 @@ export default function HotelDetailsPage() {
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4'>
           {displayed.map((item) => (
             <Link key={item.id} href={`/details/${item.id}`} className='border p-4 rounded-md shadow-md hover:bg-gray-100 transition duration-500 ease-in-out transform hover:translate-y-1 hover:shadow-lg'>
-              <Image src={item.image} alt={item.name} width={500} height={300} className='rounded-md object-cover mb-4' />
-              <h4 className='text-lg font-semibold'>{item.name}</h4>
-              <p>Location: {item.location}</p>
-              <p>Rating: {item.rating} ⭐</p>
+              <div>
+                <Image src={item.images[0]} alt={item.name} width={500} height={300} className='rounded-md object-cover mb-4' />
+                <h4 className='text-lg font-semibold'>{item.name}</h4>
+                <p>Location: {item.location}</p>
+                <p>Rating: {item.rating} ⭐</p>
+              </div>
             </Link>
           ))}
         </div>
