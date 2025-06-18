@@ -13,6 +13,7 @@ import TopHotelDeals from "./components/Hotel";
 import FeatureSection from "./components/Features";
 import dynamic from "next/dynamic";
 import TripuraTourismPage from "./components/CTXSection";
+import ContactSection from "./components/contact";
 
 const TripuraMap = dynamic(() => import("./components/TripuraMap"), {
   ssr: false,
@@ -50,44 +51,8 @@ export default function Home() {
       <FeatureSection />
       <TripuraTourismPage />
       {/* Contact */}
-      <section id="contact" className="py-12 px-4 bg-gray-50">
-        <h2 className="text-2xl font-semibold text-center mb-8 text-gray-800">
-          Get in Touch
-        </h2>
-
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          {/* Left - Map */}
-          <TripuraMap />
-
-          {/* Right - Contact Form */}
-          <form
-            id="contact"
-            className="w-full space-y-4 bg-white p-6 rounded-lg shadow-md"
-          >
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
-            />
-            <textarea
-              rows="4"
-              placeholder="Your Message"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
-            ></textarea>
-            <button
-              type="submit"
-              className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-800 transition"
-            >
-              Send Message
-            </button>
-          </form>
-        </div>
-      </section>
+      <ContactSection/>
+      {/* Contact */}
       <Footer />
     </div>
   );

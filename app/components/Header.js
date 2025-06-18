@@ -16,10 +16,10 @@ const HeaderMenu = () => {
       } absolute top-0 left-0 right-0 flex items-center justify-between px-6 py-4 z-20`}
     >
       <Image
-        src="/tripura-logo1.png"
+        src="/tripuratourismlogo.png"
         alt="Logo"
-        width={60}
-        height={60}
+        width={100}
+        height={100}
         className="cursor-pointer"
       />
       <ul className="hidden md:flex gap-6 text-white font-semibold">

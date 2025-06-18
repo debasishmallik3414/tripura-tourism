@@ -123,15 +123,24 @@ const TopHotelDeals = () => {
           View All →
         </Link>
       </div> */}
-      <div className="flex justify-end mt-8 max-w-6xl mx-auto px-2">
-        <Link
-          href="/hotels"
-          className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-shadow shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
-          <span>Explore Hotels</span>
-          <i className="ri-arrow-right-line text-lg"></i>
-        </Link>
-      </div>
+     <div className="flex justify-end mt-8 max-w-6xl mx-auto px-2">
+  <Link
+    href="/hotels"
+    className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300 group"
+  >
+    <span>Explore Hotels</span>
+    <svg
+      className="w-4 h-4 transition-transform duration-300 transform group-hover:translate-x-1"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </Link>
+</div>
+
     </section>
   );
 };

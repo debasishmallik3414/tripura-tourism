@@ -1,9 +1,26 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
+import React, { use, useState } from "react";
+
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 import HeaderMenu from "./Header";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/autoplay';
+
+const slides = [
+  "/banner6.jpg",
+  "/banner7.jpg",
+  "/banner8.jpg",
+  "/banner9.jpg",
+  "/banner10.jpg",
+  "/banner1.jpg",
+  "/banner2.jpg",
+  "/banner3.jpg",
+  "/banner4.jpg",
+  "/banner5.jpg",
+];
 
 export default function NavbarHero() {
   const router = useRouter();
@@ -17,30 +34,41 @@ export default function NavbarHero() {
   };
 
   return (
-    <div
-      className="relative h-[90vh] w-full bg-cover bg-center"
-      style={{ backgroundImage: "url('/banner6.jpg')" }}
-    >
-      {/* Nav */}
-      <HeaderMenu />
-      {/* Hero Content */}
-      <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-white text-3xl md:text-5xl font-bold mb-2">
-          <span className="text-yellow-400">UP TO 60% OFF</span> ADVENTURE
-          TRAVEL
-        </h1>
-        <p className="text-gray-200 text-md md:text-lg font-medium mb-6">
-          Join over 40,000 members. Get exclusive access to members-only deals.
-        </p>
+    <div className="relative h-[90vh] w-full">
+      {/* Background Swiper Slider */}
+      <Swiper
+        modules={[Autoplay, EffectFade]}
+        effect="fade"
+        loop
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        className="absolute inset-0 h-full w-full z-0"
+      >
+        {slides.map((src, index) => (
+          <SwiperSlide key={index}>
+            <div
+              className="h-full w-full bg-cover bg-center"
+              style={{ backgroundImage: `url(${src})` }}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-        {/* Search/Subscribe Box */}
+      {/* Overlay Content */}
+      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4 z-10">
+        <HeaderMenu />
+        <h1 className="text-white text-3xl md:text-5xl font-bold mb-2 animate-fade-in">
+          <span className="text-yellow-400">EXPLORE THE BEAUTY</span> OF TRIPURA
+        </h1>
+        <p className="text-gray-200 text-md md:text-lg font-medium mb-6 animate-fade-in delay-200">
+          Discover hidden gems, ancient heritage, and breathtaking landscapes across Tripura.
+        </p>
         <form
           onSubmit={handleSearch}
-          className="flex w-full max-w-xl rounded-full overflow-hidden bg-white shadow-lg"
+          className="flex w-full max-w-xl rounded-full overflow-hidden bg-white shadow-lg animate-fade-in delay-500"
         >
           <input
             type="text"
-            placeholder="Search or enter your email"
+            placeholder="Search places or enter your email"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="flex-1 px-4 py-3 text-gray-700 focus:outline-none"
@@ -49,7 +77,7 @@ export default function NavbarHero() {
             type="submit"
             className="bg-orange-500 text-white font-bold px-6 py-3 hover:bg-orange-600 transition"
           >
-            SUBSCRIBE
+            Explore
           </button>
         </form>
       </div>

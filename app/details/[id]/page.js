@@ -1,477 +1,245 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import React, { useState, useEffect, useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const hotels = [
   {
     id: 1,
-    name: "Hotel Polo Towers",
-    images: [
-      "/hotel1.jpg",
-      "/polo2.jpg",
-      "/polo3.jpg",
-      "/polo4.jpg",
-      "/polo5.jpg",
-    ],
-    location: "Agartala",
-    price: "₹7,999/night",
+    name: 'Hotel Polo Towers',
+    location: 'Agartala',
     rating: 4.5,
-    reviews: 250,
-    description: "Comfortable hotel in Agartala with all modern facilities.",
-    facilities: [
-      "Free WiFi",
-      "Fitness Center",
-      "Swimming Pool",
-      "Restaurant",
-      "Business Center",
-    ],
+    reviews: 245,
+    price: '₹7,999/night',
+    images: ['/hotel1.jpg', '/hotel2.jpg', '/hotel3.png'],
+    description: 'Hotel Polo Towers Agartala is a luxury stay with top amenities. Perfect for business and leisure.',
+    facilities: ['Free WiFi', 'Swimming Pool', 'Restaurant', 'Spa', 'Parking'],
   },
   {
     id: 2,
-    name: "Lake Side Resort Neermahal",
-    images: [
-      "/hotel2.jpg",
-      "/neermahal2.jpg",
-      "/neermahal3.jpg",
-      "/neermahal4.jpg",
-    ],
-    location: "Rudrasagar",
-    price: "₹3,499/night",
-    rating: 4.0,
-    reviews: 150,
-    description: "Beautiful lakeside resort with stunning views.",
-    facilities: [
-      "Free Parking",
-      "Restaurant",
-      "Bar",
-      "Room Service",
-      "24/7 Reception",
-    ],
+    name: 'Lake Side Resort Neermahal',
+    location: 'Rudrasagar',
+    rating: 4.7,
+    reviews: 180,
+    price: '₹6,499/night',
+    images: ['/hotel2.jpg'],
+    description: 'Enjoy a serene lakeside experience at this charming resort overlooking Neermahal.',
+    facilities: ['Boating', 'Lake View', 'Restaurant', 'Parking'],
   },
   {
     id: 3,
-    name: "Eden Tourist Lodge",
-    images: ["/hotel3.png", "/eden2.jpg", "/eden3.jpg", "/eden4.png"],
-    location: "Jampui Hills",
-    price: "₹2,499/night",
+    name: 'Royal Heritage Palace',
+    location: 'Ujjayanta Palace',
     rating: 4.2,
-    reviews: 100,
-    description: "A serene lodge in the hills, perfect for nature lovers.",
-    facilities: [
-      "Free WiFi",
-      "Restaurant",
-      "Garden",
-      "Hiking Trails",
-      "24/7 Reception",
-    ],
+    reviews: 98,
+    price: '₹5,899/night',
+    images: ['/hotel3.jpg'],
+    description: 'Stay like royalty at this heritage-themed hotel near Ujjayanta Palace.',
+    facilities: ['AC Rooms', 'Free Breakfast', 'Tour Guide', 'WiFi'],
   },
   {
     id: 4,
-    name: "Unakoti Tourist Lodge",
-    images: ["/hotel4.jpg", "/hotel4.jpg", "/hotel4.jpg", "/hotel4.jpg"],
-    location: "Unakoti",
-    price: "₹1,999/night",
-    rating: 4.3,
-    reviews: 120,
-    description: "A budget-friendly lodge with basic amenities.",
-    facilities: [
-      "Free WiFi",
-      "Restaurant",
-      "Garden",
-      "Hiking Trails",
-      "24/7 Reception",
-    ],
-  },
-  {
-    id: 5,
-    name: "Hotel Royal Inn",
-    images: ["/hotel5.jpg"],
-    location: "Udaipur",
-    price: "₹2,799/night",
-    rating: 4.1,
-    reviews: 90,
-    description: "A royal experience in the heart of Udaipur.",
-    facilities: [
-      "Free WiFi",
-      "Restaurant",
-      "Bar",
-      "Room Service",
-      "24/7 Reception",
-    ],
-  },
-  {
-    id: 6,
-    name: "The Imperial Hotel",
-    images: [
-      "/hotel10.jpeg",
-      "/imperial2.jpg",
-      "/imperial3.jpg",
-      "/imperial4.jpg",
-    ],
-    location: "Udaipur",
-    price: "₹2,199/night",
-    rating: 4.0,
-    reviews: 60,
-    description: "A luxurious hotel with modern amenities.",
-    facilities: [
-      "Free WiFi",
-      "Fitness Center",
-      "Swimming Pool",
-      "Restaurant",
-      "Business Center",
-    ],
-  },
-  {
-    id: 7,
-    name: "NOAH SPIRE 5 Star Boutique Hotel",
-    images: ["/hotel11.jpeg", "/noah2.jpeg", "/noah3.jpg", "/noah4.jpg"],
-    location: "Agartala",
-    price: "₹4,999/night",
-    rating: 4.4,
-    reviews: 200,
-    description: "A boutique hotel offering a unique experience.",
-    facilities: ["Free WiFi", "Spa", "Restaurant", "Bar", "Room Service"],
-  },
-  {
-    id: 8,
-    name: "Narkel Kunja Resort",
-    images: ["/hotel12.png", "/narkel2.jpg", "/narkel3.jpg", "/narkel4.jpg"],
-    location: "Domboor Lake",
-    price: "₹2,999/night",
-    rating: 4.2,
-    reviews: 80,
-    description:
-      "A lakeside resort with beautiful views and comfortable rooms.",
-    facilities: [
-      "Free WiFi",
-      "Restaurant",
-      "Bar",
-      "Room Service",
-      "24/7 Reception",
-    ],
+    name: 'Eco Retreat Jampui Hills',
+    location: 'Jampui Hills',
+    rating: 4.9,
+    reviews: 112,
+    price: '₹8,199/night',
+    images: ['/hotel4.jpg'],
+    description: 'Escape to the lush greenery of Jampui Hills with this eco-friendly retreat.',
+    facilities: ['Hiking', 'Organic Food', 'Mountain View', 'Campfire'],
   },
 ];
 
-// Comments (Mock data)
 const comments = [
-  {
-    id: 1,
-    hotelId: 1,
-    author: "Debasish",
-    text: "Excellent hotel!",
-    rating: 5,
-  },
-  {
-    id: 2,
-    hotelId: 1,
-    author: "Kunal",
-    text: "Comfortable and well-equipped.",
-    rating: 4,
-  },
-  // … more comments
+  { id: 1, hotelId: 1, author: 'Debasish', text: 'Excellent hotel!', rating: 5 },
+  { id: 2, hotelId: 1, author: 'Kunal', text: 'Comfortable and well-equipped.', rating: 4 },
 ];
 
 export default function HotelDetailsPage() {
-  // Retrieve hotel id from route parameters
   const { id } = useParams();
   const hotelId = Number(id);
-
-  // Find hotel by id
   const hotel = hotels.find((item) => item.id === hotelId);
-
-  if (!hotel) return <p>Loading...</p>;
-
-  // Comments related to this hotel
   const hotelComments = comments.filter((item) => item.hotelId === hotelId);
 
-  // Comments pagination
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('');
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [newComment, setNewComment] = useState('');
+  const [newRating, setNewRating] = useState(5);
+
   const [currentCommentPage, setCurrentCommentPage] = useState(1);
   const commentsPerPage = 5;
-
-  const totalComments = hotelComments.length;
-  const totalCommentPages = Math.ceil(totalComments / commentsPerPage);
+  const totalCommentPages = Math.ceil(hotelComments.length / commentsPerPage);
   const displayedComments = hotelComments.slice(
     (currentCommentPage - 1) * commentsPerPage,
     currentCommentPage * commentsPerPage
   );
 
-  // Booking form state
-  const [bookingName, setBookingName] = useState("");
-  const [bookingDates, setBookingDates] = useState("");
-  // Save to favorites
-  const [isFavorite, setIsFavorite] = useState(false);
-  // Comments form
-  const [newComment, setNewComment] = useState("");
-  const [newRating, setNewRating] = useState(5);
-
-  // Pagination for related hotels
-  const related = hotels.filter(
-    (item) => item.location === hotel.location && item.id !== hotelId
-  );
-
-  // Calculate pagination
+  const related = hotels.filter((item) => item.location === hotel?.location && item.id !== hotelId);
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 4;
+  const totalPages = Math.ceil(related.length / perPage);
+  const displayed = related.slice((currentPage - 1) * perPage, currentPage * perPage);
 
-  const total = related.length;
-  const totalPages = Math.ceil(total / perPage);
-  const start = (currentPage - 1) * perPage;
-  const displayed = related.slice(start, start + perPage);
-
-  // Handle adding comments
-  const handleAddComment = (e) => {
-    e.preventDefault();
-
-    console.log(`Add Comment by ${newComment} with rating ${newRating}.`);
-
-    // Here you'd normally send this to your backend
-    alert("Comment submitted!");
-    setNewComment("");
-    setNewRating(5);
-  };
-
-  // Handle favorites persistence
   useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     setIsFavorite(favorites.some((item) => item.id === hotelId));
   }, [hotelId]);
 
   const handleFavorite = () => {
-    let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     if (isFavorite) {
       favorites = favorites.filter((item) => item.id !== hotelId);
     } else {
       favorites.push(hotel);
     }
-
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-
+    localStorage.setItem('favorites', JSON.stringify(favorites));
     setIsFavorite((prev) => !prev);
   };
 
+  const handleBooking = (e) => {
+    e.preventDefault();
+    if (name && date) {
+      setBookingSuccess(true);
+      setName('');
+      setDate('');
+    }
+  };
+
+  const handleAddComment = (e) => {
+    e.preventDefault();
+    alert('Comment submitted!');
+    setNewComment('');
+    setNewRating(5);
+  };
+
+  if (!hotel) return <p>Loading...</p>;
+
   return (
-    <div className="min-h-screen p-6 bg-gray-100">
-      {/* Title */}
-      <h1 className="text-4xl font-semibold mb-4">{hotel.name}</h1>
+    <div className="min-h-screen bg-white text-gray-800">
+      <div className="max-w-7xl mx-auto px-4 py-10">
+        <h1 className="text-4xl font-bold mb-6">{hotel.name}</h1>
 
-      {/* Image Slider Section */}
-      <div className="rounded-md overflow-hidden shadow-md mb-4 relative">
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          pagination={{ clickable: true }}
-          navigation
-          autoplay={{ delay: 3000 }}
-        >
-          {hotel.images.map((img, idx) => (
-            <SwiperSlide key={idx}>
-              <Image
-                src={img}
-                alt={`${hotel.name} ${idx}`}
-                width={700}
-                height={500}
-                className="rounded-md object-cover w-full"
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-
-      {/* Booking Section */}
-      <div className="bg-gray-50 p-4 rounded-md shadow-md mb-4">
-        <h2>Book a room</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log(`Booking for ${bookingName} from ${bookingDates}.`);
-            alert("Booking submitted!");
-          }}
-        >
-          <input
-            aria-label="Name"
-            type="text"
-            placeholder="Your Name"
-            value={bookingName}
-            onChange={(e) => setBookingName(e.target.value)}
-            className="p-2 border rounded-md w-full mb-4"
-            required
-          />
-
-          <input
-            aria-label="Dates"
-            type="date"
-            value={bookingDates}
-            onChange={(e) => setBookingDates(e.target.value)}
-            className="p-2 border rounded-md w-full mb-4"
-            required
-          />
-
-          <button
-            type="submit"
-            className="bg-green-500 text-gray-50 px-4 py-2 rounded-md block w-full"
-          >
-            Book Now
+        {/* Swiper Slider */}
+        <div className="relative">
+          <button id="custom-prev" className="absolute top-1/2 left-2 z-10 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 p-2 rounded-full shadow">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
-        </form>
+          <button id="custom-next" className="absolute top-1/2 right-2 z-10 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 p-2 rounded-full shadow">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
 
-        {/* Save to favorites */}
-        <button
-          aria-label="Save to favorites"
-          onClick={handleFavorite}
-          className="bg-blue-500 text-gray-50 px-4 py-2 rounded-md mt-4"
-        >
-          {isFavorite ? "❤️ Saved to Favorites" : "Save to Favorites"}
-        </button>
-      </div>
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            pagination={{ clickable: true }}
+            navigation={{ prevEl: '#custom-prev', nextEl: '#custom-next' }}
+            autoplay={{ delay: 3000 }}
+            className="rounded-xl overflow-hidden"
+          >
+            {hotel.images.map((img, idx) => (
+              <SwiperSlide key={idx}>
+                <Image src={img} alt={`${hotel.name} ${idx}`} width={1200} height={600} className="w-full object-cover h-[500px]" />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
 
-      {/* Description Section */}
-      <div className="bg-gray-50 p-4 mt-6 rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">About</h2>
-        <p className="mb-4">{hotel.description}</p>
+        {/* Booking Form & Info */}
+        <div className="grid md:grid-cols-3 gap-6 my-8">
+          <div className="md:col-span-1 bg-gray-100 p-6 rounded-xl shadow-md relative">
+            {bookingSuccess ? (
+              <div className="text-green-700 text-center font-semibold text-xl">
+                ✅ Thank you for your reservation!
+              </div>
+            ) : (
+              <form onSubmit={handleBooking} className="flex flex-col gap-4">
+                <h2 className="text-2xl font-semibold mb-2">Book a Room</h2>
+                <input value={name} onChange={(e) => setName(e.target.value)} className="w-full p-2 rounded border" placeholder="Your Name" required />
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full p-2 rounded border" required />
+                <button type="submit" className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Book Now</button>
+              </form>
+            )}
+            <button onClick={handleFavorite} className="w-full mt-4 bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+              {isFavorite ? '❤️ In Favorites' : 'Save to Favorites'}
+            </button>
+          </div>
 
-        {/* Facilities Section with icons*/}
-        <h3 className="text-lg font-semibold">Facilities</h3>
-        <ul className="list-inside list-none mt-2 ml-4 space-y-1">
-          {hotel.facilities.map((item, idx) => (
-            <li key={idx}>🔹 {item}</li>
-          ))}
-        </ul>
-      </div>
+          <div className="md:col-span-2 space-y-6">
+            <div className="bg-gray-100 p-6 rounded-xl shadow-md">
+              <h3 className="text-xl font-bold mb-2">About</h3>
+              <p className="mb-4">{hotel.description}</p>
+              <h4 className="font-semibold mb-2">Facilities</h4>
+              <ul className="grid grid-cols-2 gap-2">
+                {hotel.facilities.map((item, idx) => (
+                  <li key={idx} className="before:content-['✔️'] before:mr-2">{item}</li>
+                ))}
+              </ul>
+            </div>
 
-      {/* Comments Section */}
-      <div className="bg-gray-50 p-4 mt-6 rounded-md shadow-md">
-        <h3>Reviews</h3>
-        <p>Average Rating: {hotel.rating} ⭐</p>
-        <p>({hotel.reviews} reviews)</p>
+            <div className="bg-gray-100 p-6 rounded-xl shadow-md">
+              <h3 className="text-xl font-bold mb-2">Reviews</h3>
+              <p>Average Rating: {hotel.rating} ⭐ ({hotel.reviews} reviews)</p>
+              <ul className="mt-4 space-y-2">
+                {displayedComments.map((item) => (
+                  <li key={item.id} className="border p-2 rounded bg-white">{item.author}: {item.text} — {item.rating} ⭐</li>
+                ))}
+              </ul>
+              <div className="flex gap-2 mt-4">
+                {Array.from({ length: totalCommentPages }, (_, i) => i + 1).map((page) => (
+                  <button key={page} onClick={() => setCurrentCommentPage(page)} disabled={currentCommentPage === page}
+                    className={`px-3 py-1 rounded border ${currentCommentPage === page ? 'bg-gray-700 text-white' : 'bg-white'}`}>
+                    {page}
+                  </button>
+                ))}
+              </div>
 
-        {/* Comments List */}
-        <ul className="list-inside list-decimal mt-4 ml-4 space-y-1">
-          {displayedComments.map((item) => (
-            <li key={item.id}>
-              <strong>{item.author}:</strong> {item.text} — {item.rating} ⭐
-            </li>
-          ))}
-        </ul>
+              <form onSubmit={handleAddComment} className="mt-6 flex flex-col gap-4">
+                <input type="text" placeholder="Write a comment" value={newComment} onChange={(e) => setNewComment(e.target.value)} required className="p-2 border rounded" />
+                <select value={newRating} onChange={(e) => setNewRating(Number(e.target.value))} className="p-2 border rounded">
+                  {[5, 4, 3, 2, 1].map((val) => (
+                    <option key={val} value={val}>{val}</option>
+                  ))}
+                </select>
+                <button type="submit" className="bg-green-600 text-white py-2 rounded hover:bg-green-700">Submit Comment</button>
+              </form>
+            </div>
+          </div>
+        </div>
 
-        {/* Comments Pagination */}
-        <div className="flex justify-center mt-4 gap-2">
-          {Array.from({ length: totalCommentPages }, (_, i) => i + 1).map(
-            (page) => (
-              <button
-                key={page}
-                disabled={currentCommentPage === page}
-                onClick={() => setCurrentCommentPage(page)}
-                className="px-3 py-1 rounded-md border disabled:bg-gray-500 disabled:text-gray-50"
-              >
+        {/* Related Hotels */}
+        <div className="bg-gray-50 p-6 rounded-xl shadow-md">
+          <h3 className="text-2xl font-bold mb-6">Related Hotels</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {displayed.map((item) => (
+              <Link key={item.id} href={`/details/${item.id}`} className="bg-white rounded-xl p-4 shadow hover:shadow-lg transition">
+                <Image src={item.images[0]} alt={item.name} width={400} height={200} className="w-full h-48 object-cover rounded-lg mb-3" />
+                <h4 className="font-semibold text-lg">{item.name}</h4>
+                <p className="text-sm text-gray-500">{item.location}</p>
+                <p className="text-sm">{item.rating} ⭐</p>
+              </Link>
+            ))}
+          </div>
+          <div className="flex justify-center mt-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button key={page} onClick={() => setCurrentPage(page)} disabled={currentPage === page}
+                className={`px-3 py-1 rounded border ${currentPage === page ? 'bg-gray-700 text-white' : 'bg-white'}`}>
                 {page}
               </button>
-            )
-          )}
-        </div>
-
-        {/* Comment Submission Form*/}
-        <form
-          onSubmit={handleAddComment}
-          className="flex flex-col mt-4 space-y-4"
-        >
-          <input
-            aria-label="Add Comment"
-            type="text"
-            placeholder="Write a comment"
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            className="p-2 border rounded-md"
-            required
-          />
-
-          <select
-            aria-label="Rating"
-            value={newRating}
-            onChange={(e) => setNewRating(Number(e.target.value))}
-            className="p-2 border rounded-md"
-          >
-            <option value="">Select Rating</option>
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-          </select>
-
-          <button
-            aria-label="Add Comment"
-            type="submit"
-            className="bg-green-500 text-gray-50 px-4 py-2 rounded-md hover:bg-green-800"
-          >
-            Submit Comment
-          </button>
-        </form>
-      </div>
-
-      {/* Location Section (with a map)*/}
-      {/* Mock for now*/}
-      {/* <div className="bg-gray-50 p-4 mt-6 rounded-md shadow-md">
-        <h3>Location</h3>
-        <p>{hotel.location}</p>
-        {hotel.latitude && hotel.longitude ? (
-          <LocationMap
-            latitude={hotel.latitude}
-            longitude={hotel.longitude}
-            locationName={hotel.location}
-          />
-        ) : (
-          <p>Map unavailable</p>
-        )}
-      </div> */}
-
-      {/* Related Hotels Section */}
-      <div className="bg-gray-50 p-4 mt-6 rounded-md shadow-md">
-        <h3>Related Hotels</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          {displayed.map((item) => (
-            <Link
-              key={item.id}
-              href={`/details/${item.id}`}
-              className="border p-4 rounded-md shadow-md hover:bg-gray-100 transition duration-500 ease-in-out transform hover:translate-y-1 hover:shadow-lg"
-            >
-              <div>
-                <Image
-                  src={item.images[0]}
-                  alt={item.name}
-                  width={500}
-                  height={300}
-                  className="rounded-md object-cover mb-4"
-                />
-                <h4 className="text-lg font-semibold">{item.name}</h4>
-                <p>Location: {item.location}</p>
-                <p>Rating: {item.rating} ⭐</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Pagination controls for related hotels*/}
-        <div className="flex justify-center mt-4 gap-2">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              disabled={currentPage === page}
-              onClick={() => setCurrentPage(page)}
-              className="px-3 py-1 rounded-md border disabled:bg-gray-500 disabled:text-gray-50"
-            >
-              {page}
-            </button>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

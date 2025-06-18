@@ -4,16 +4,16 @@ import Image from "next/image";
 import React from "react";
 
 const destinationsRow1 = [
-  { keyword: "Explore", place: "AUSTRALIA", image: "/destination1.jpg" },
-  { keyword: "Uncover", place: "INDIA", image: "/destination2.jpg" },
-  { keyword: "Discover", place: "PERU", image: "/destination3.jpg" },
-  { keyword: "Paradise", place: "BALI", image: "/destination4.jpg" },
-  { keyword: "Adventure", place: "HAWAII", image: "/destination5.jpeg" },
+  { keyword: "Heritage", place: "UNOKOTI", image: "/destination1.jpg" },
+  { keyword: "Royal Retreat", place: "NEERMAHAL", image: "/destination2.jpg" },
+  { keyword: "Scenic Views", place: "JUMPAI HILLS", image: "/destination3.jpg" },
+  { keyword: "Wildlife", place: "SEPAHIJALA WILDLIFE SANCTUARY & ZOO", image: "/destination4.jpg" },
+  { keyword: "Spiritual", place: "TRIPURA SUNDARI TEMPLE", image: "/destination5.jpeg" },
 ];
 
 const PopularDestinations = () => {
   return (
-    <section className="py-12 px-4 bg-white">
+    <section className="py-12 px-4 bg-gray-100 min-h-screen">
       <h2 className="text-3xl font-bold text-center text-blue-900 mb-10">
         Popular Destinations
       </h2>
@@ -44,6 +44,25 @@ const PopularDestinations = () => {
           ))}
         </div>
       </div>
+      {/* CTA Button */}
+<div className="flex justify-end mt-4 px-2">
+  <a
+    href="/destination"
+    className="inline-flex items-center gap-2  px-6 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300 group"
+  >
+    {/* <span>View All Destinations</span> */}
+    <svg
+      className="w-4 h-4  transition-transform duration-300 transform group-hover:translate-x-1"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </a>
+</div>
+
     </section>
   );
 };
