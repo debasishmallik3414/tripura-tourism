@@ -6,7 +6,6 @@ import { useState } from "react";
 import Footer from "../Footer";
 import HeaderMenu from "../components/Header";
 
-// Sample destination data
 const destinations = [
   { id: 0, title: "Unakoti Hills", image: "/destination1.jpg" },
   { id: 1, title: "Neermahal Palace", image: "/destination2.jpg" },
@@ -52,44 +51,34 @@ export default function DestinationsPage() {
 
       {/* Grid of Destination Cards */}
       <div className="px-6 pb-16 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-       {destinations.map((dest) => (
-  <div
-    key={dest.id}
-    className="relative h-[400px] rounded-xl overflow-hidden group shadow-lg"
-  >
-    <Image
-      src={dest.image}
-      alt={dest.title}
-      layout="fill"
-      objectFit="cover"
-      className="transition-transform duration-300 group-hover:scale-105"
-    />
+        {destinations.map((dest) => (
+          <div
+            key={dest.id}
+            onClick={() => router.push(`/destinationdetails/${dest.id}`)}
+            className="relative h-[400px] rounded-xl overflow-hidden group shadow-lg cursor-pointer"
+          >
+            <Image
+              src={dest.image}
+              alt={dest.title}
+              layout="fill"
+              objectFit="cover"
+              className="transition-transform duration-300 group-hover:scale-105"
+            />
 
-    {/* Overlay */}
-    <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition duration-300"></div>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition duration-300" />
 
-    {/* Text content */}
-    <div className="absolute bottom-6 left-6 text-white z-10">
-      <h3 className="text-xl font-bold">{dest.title}</h3>
-      <p className="text-sm mt-2 max-w-[250px]">
-        Explore the cultural and scenic beauty of {dest.title}.
-      </p>
-      <Link
-        href={`/destinationdetails/${dest.id}`}
-        className="inline-block mt-4 px-4 py-2 text-sm bg-green-600 hover:bg-white hover:text-black transition font-semibold rounded"
-      >
-        SEE DETAILS
-      </Link>
-
-      <div className="flex gap-4 mt-4 text-xl">
-        <Link href="#"><i className="fab fa-facebook-f hover:text-blue-400"></i></Link>
-        <Link href="#"><i className="fab fa-twitter hover:text-blue-300"></i></Link>
-        <Link href="#"><i className="fab fa-instagram hover:text-pink-400"></i></Link>
+            {/* Text content */}
+            <div className="absolute bottom-0 left-0 w-full text-white z-10 p-4">
+              <h3 className="text-xl font-bold mb-1">{dest.title}</h3>
+              <p className="text-sm max-w-[250px] opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300 ease-in-out">
+                Explore the cultural and scenic beauty of {dest.title}.
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-</div>
-    ))}
-  </div>
+
       {/* Footer */}
       <Footer />
     </div>
