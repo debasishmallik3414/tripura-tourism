@@ -96,7 +96,7 @@ export default function HotelsPage() {
     <div className="min-h-screen flex flex-col bg-gray-100">
       <HeaderMenu />
 
-      <main className="flex-grow pt-24 pb-16 px-4 ">
+      <main className="flex-grow pt-24 pb-16 px-4">
         {/* Breadcrumb */}
         <nav className="text-sm text-gray-500 mb-4">
           <ol className="flex space-x-2">
@@ -108,18 +108,10 @@ export default function HotelsPage() {
 
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Available Hotels</h1>
 
-        {/* Search + Sort */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
-          <input
-            type="text"
-            placeholder="Search hotel by name or location..."
-            className="w-full md:w-1/4 px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-
+        {/* Sort and Search */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <select
-            className="border border-gray-300 rounded-md text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="border border-gray-300 rounded-md text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 w-full md:w-auto"
             onChange={(e) => {
               const sortType = e.target.value;
               if (sortType === "price-low") {
@@ -127,13 +119,21 @@ export default function HotelsPage() {
               } else if (sortType === "price-high") {
                 hotels.sort((a, b) => parseInt(b.price.replace(/[^\d]/g, '')) - parseInt(a.price.replace(/[^\d]/g, '')));
               }
-              setVisibleCount(4); // Reset view
+              setVisibleCount(4);
             }}
           >
             <option value="">Sort by</option>
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>
           </select>
+
+          <input
+            type="text"
+            placeholder="Search hotel by name or location..."
+            className="w-full md:w-1/4 px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </div>
 
         {/* Active Filter Tags */}
@@ -144,10 +144,9 @@ export default function HotelsPage() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Filter Sidebar */}
-          <aside className="bg-white p-4 rounded-md shadow-md w-full md:w-1/4">
+          {/* Sidebar */}
+          <aside className="bg-white p-4 rounded-md shadow-md w-full md:w-[20%]">
             <h2 className="text-lg font-semibold mb-4">Filters</h2>
-
             <div className="mb-4">
               <h3 className="font-medium mb-2">Location</h3>
               <ul className="space-y-1 text-gray-600 text-sm">
@@ -159,7 +158,6 @@ export default function HotelsPage() {
                 <li>Domboor Lake</li>
               </ul>
             </div>
-
             <div>
               <h3 className="font-medium mb-2">Budget per night</h3>
               <ul className="space-y-1 text-gray-600 text-sm">
@@ -171,55 +169,49 @@ export default function HotelsPage() {
             </div>
           </aside>
 
-          {/* Hotel List */}
+          {/* Hotel Cards */}
           <div className="flex-1 flex flex-col gap-8">
             {visibleHotels.map((hotel) => (
-              <div
-                key={hotel.id}
-                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-transform transform hover:scale-105 duration-300 flex flex-col md:flex-row"
-              >
-                <div className="w-full md:w-1/2 p-6 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-3xl font-serif font-semibold text-gray-800 mb-3">
-                      {hotel.name}
-                    </h3>
+  <div
+  key={hotel.id}
+  className="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 flex flex-col md:flex-row relative"
+>
+  <div className="w-full md:w-1/2 p-6 flex flex-col justify-between z-10">
+    <div>
+      <h3 className="text-3xl font-serif font-semibold text-gray-800 mb-3">{hotel.name}</h3>
+      <div className="flex items-center gap-4 text-green-700 mb-3 text-sm">
+        <span>📏 30m²</span>
+        <span>👤 2</span>
+        <span>🛏 1</span>
+      </div>
+      <p className="text-green-700 text-sm font-semibold mb-2">
+        Price starting at <span className="text-base">{hotel.price}</span>
+      </p>
+      <p className="text-gray-600 mb-4">
+        Location: {hotel.location} | {hotel.rating}⭐ ({hotel.reviews} reviews)
+      </p>
+      <p className="text-gray-500 mb-5">
+        Features a lavish queen-size bed with aesthetic decor, providing the ultimate in comfort and luxury.
+      </p>
+    </div>
+    <Link
+      href={`/details/${hotel.id}`}
+      className="inline-block border border-green-700 text-green-700 px-5 py-2 text-sm font-medium rounded hover:bg-green-700 hover:text-white transition"
+    >
+      Learn More
+    </Link>
+  </div>
 
-                    <div className="flex items-center gap-4 text-green-700 mb-3 text-sm">
-                      <span>📏 30m²</span>
-                      <span>👤 2</span>
-                      <span>🛏 1</span>
-                    </div>
-
-                    <p className="text-green-700 text-sm font-semibold mb-2">
-                      Price starting at <span className="text-base">{hotel.price}</span>
-                    </p>
-
-                    <p className="text-gray-600 mb-4">
-                      Location: {hotel.location} | {hotel.rating}⭐ ({hotel.reviews} reviews)
-                    </p>
-
-                    <p className="text-gray-500 mb-5">
-                      Features a lavish queen-size bed with aesthetic decor, providing the ultimate in comfort and luxury.
-                    </p>
-                  </div>
-
-                  <Link
-                    href={`/details/${hotel.id}`}
-                    className="inline-block border border-green-700 text-green-700 px-5 py-2 text-sm font-medium rounded hover:bg-green-700 hover:text-white transition"
-                  >
-                    Learn More
-                  </Link>
-                </div>
-
-                <div className="relative w-full md:w-1/2 h-64 md:h-auto">
-                  <Image
-                    src={hotel.image}
-                    alt={hotel.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
+  {/* Fix image container width and prevent overflow */}
+  <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
+    <Image
+      src={hotel.image}
+      alt={hotel.name}
+      fill
+      className="object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
+</div>
             ))}
 
             {visibleCount < filteredHotels.length && (

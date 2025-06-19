@@ -24,34 +24,34 @@ const HeaderMenu = () => {
       />
       <ul className="hidden md:flex gap-6 text-white font-semibold">
         <li>
-          <a href="#home" className="hover:text-yellow-400">
+          <a href="#home" className="hover:text-green-400">
             Home
           </a>
         </li>
         <li>
-          <a href="#features" className="hover:text-yellow-400">
+          <a href="#features" className="hover:text-green-400">
             Features
           </a>
         </li>
         <li>
-          <a href="#top-destination" className="hover:text-yellow-400">
+          <a href="#top-destination" className="hover:text-green-400">
             Place
           </a>
         </li>
         <li>
-          <a href="#about" className="hover:text-yellow-400">
+          <a href="#about" className="hover:text-green-400">
             About
           </a>
         </li>
         <li>
-          <a href="#contact" className="hover:text-yellow-400">
+          <a href="#contact" className="hover:text-green-400">
             Contact
           </a>
         </li>
       </ul>
       <Link
         href="/signup"
-        className="bg-white text-green-700 font-semibold px-4 py-2 rounded-full hover:bg-yellow-400 transition"
+        className="bg-white text-green-700 font-semibold px-4 py-2 rounded-full hover:bg-green-400 transition"
       >
         Sign Up
       </Link>
