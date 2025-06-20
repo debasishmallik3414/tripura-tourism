@@ -1,10 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Footer from '../Footer';
 import HeaderMenu from '../components/Header';
+import Loader from '../components/loader';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const hotels = [
   {
@@ -84,6 +87,21 @@ const hotels = [
 export default function HotelsPage() {
   const [query, setQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(4);
+  const [loading, setLoading] = useState(true);
+  const [navigating, setNavigating] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleLearnMore = (id) => {
+    setNavigating(true);
+    setTimeout(() => {
+      router.push(`/details/${id}`);
+    }, 1000);
+  };
 
   const filteredHotels = hotels.filter((hotel) =>
     hotel.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -92,23 +110,15 @@ export default function HotelsPage() {
 
   const visibleHotels = filteredHotels.slice(0, visibleCount);
 
+  if (navigating) return <Loader />;
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <HeaderMenu />
 
       <main className="flex-grow pt-24 pb-16 px-4">
-        {/* Breadcrumb */}
-        <nav className="text-sm text-gray-500 mb-4">
-          <ol className="flex space-x-2">
-            <li><Link href="/" className="text-green-700 hover:underline">Home</Link></li>
-            <li>/</li>
-            <li className="text-gray-600">Hotels</li>
-          </ol>
-        </nav>
+        <h1 className="text-4xl font-bold text-gray-900 mb-6">Available Hotels</h1>
 
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Available Hotels</h1>
-
-        {/* Sort and Search */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <select
             className="border border-gray-300 rounded-md text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 w-full md:w-auto"
@@ -136,15 +146,7 @@ export default function HotelsPage() {
           />
         </div>
 
-        {/* Active Filter Tags */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Agartala</span>
-          <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">₹2,000–₹5,000</span>
-          <button className="text-sm text-red-500 hover:underline ml-2">Clear all</button>
-        </div>
-
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Sidebar */}
           <aside className="bg-white p-4 rounded-md shadow-md w-full md:w-[20%]">
             <h2 className="text-lg font-semibold mb-4">Filters</h2>
             <div className="mb-4">
@@ -169,52 +171,71 @@ export default function HotelsPage() {
             </div>
           </aside>
 
-          {/* Hotel Cards */}
           <div className="flex-1 flex flex-col gap-8">
-            {visibleHotels.map((hotel) => (
-  <div
-  key={hotel.id}
-  className="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 flex flex-col md:flex-row relative"
->
-  <div className="w-full md:w-1/2 p-6 flex flex-col justify-between z-10">
-    <div>
-      <h3 className="text-3xl font-serif font-semibold text-gray-800 mb-3">{hotel.name}</h3>
-      <div className="flex items-center gap-4 text-green-700 mb-3 text-sm">
-        <span>📏 30m²</span>
-        <span>👤 2</span>
-        <span>🛏 1</span>
-      </div>
-      <p className="text-green-700 text-sm font-semibold mb-2">
-        Price starting at <span className="text-base">{hotel.price}</span>
-      </p>
-      <p className="text-gray-600 mb-4">
-        Location: {hotel.location} | {hotel.rating}⭐ ({hotel.reviews} reviews)
-      </p>
-      <p className="text-gray-500 mb-5">
-        Features a lavish queen-size bed with aesthetic decor, providing the ultimate in comfort and luxury.
-      </p>
-    </div>
-    <Link
-      href={`/details/${hotel.id}`}
-      className="inline-block border border-green-700 text-green-700 px-5 py-2 text-sm font-medium rounded hover:bg-green-700 hover:text-white transition"
-    >
-      Learn More
-    </Link>
-  </div>
+            {loading
+              ? [...Array(4)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row gap-6"
+                  >
+                    <div className="w-full md:w-1/2">
+                      <Skeleton height={250} />
+                    </div>
+                    <div className="w-full md:w-1/2 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                          <Skeleton width={200} />
+                        </h3>
+                        <p className="text-sm mb-1"><Skeleton width={100} /></p>
+                        <p className="text-gray-500 mb-2"><Skeleton count={2} /></p>
+                        <p className="text-sm"><Skeleton width={150} /></p>
+                      </div>
+                      <Skeleton height={36} width={120} />
+                    </div>
+                  </div>
+                ))
+              : visibleHotels.map((hotel) => (
+                  <div
+                    key={hotel.id}
+                    className="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 flex flex-col md:flex-row relative"
+                  >
+                    <div className="w-full md:w-1/2 p-6 flex flex-col justify-between z-10">
+                      <div>
+                        <h3 className="text-3xl font-serif font-semibold text-gray-800 mb-3">{hotel.name}</h3>
+                        <div className="flex items-center gap-4 text-green-700 mb-3 text-sm">
+                          <span>📏 30m²</span>
+                          <span>👤 2</span>
+                          <span>🛏 1</span>
+                        </div>
+                        <p className="text-green-700 text-sm font-semibold mb-2">
+                          Price starting at <span className="text-base">{hotel.price}</span>
+                        </p>
+                        <p className="text-gray-600 mb-4">
+                          Location: {hotel.location} | {hotel.rating}⭐ ({hotel.reviews} reviews)
+                        </p>
+                        <p className="text-gray-500 mb-5">
+                          Features a lavish queen-size bed with aesthetic decor.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => handleLearnMore(hotel.id)}
+                        className="inline-block border border-green-700 text-green-700 px-5 py-2 text-sm font-medium rounded hover:bg-green-700 hover:text-white transition"
+                      >
+                        Learn More
+                      </button>
+                    </div>
+                    <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
+                      <Image
+                        src={hotel.image}
+                        alt={hotel.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                ))}
 
-  {/* Fix image container width and prevent overflow */}
-  <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
-    <Image
-      src={hotel.image}
-      alt={hotel.name}
-      fill
-      className="object-cover transition-transform duration-500 group-hover:scale-105"
-    />
-  </div>
-</div>
-            ))}
-
-            {visibleCount < filteredHotels.length && (
+            {visibleCount < filteredHotels.length && !loading && (
               <button
                 onClick={() => setVisibleCount((prev) => prev + 4)}
                 className="relative px-6 py-3 font-medium text-white group bg-green-700 rounded-md w-fit self-center mt-6 hover:bg-green-800 transition"
@@ -224,7 +245,7 @@ export default function HotelsPage() {
               </button>
             )}
 
-            {filteredHotels.length === 0 && (
+            {!loading && filteredHotels.length === 0 && (
               <p className="text-gray-500 mt-6">
                 No hotels found matching your search criteria.
               </p>
