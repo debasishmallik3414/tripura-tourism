@@ -15,6 +15,8 @@ import dynamic from "next/dynamic";
 import TripuraTourismPage from "./components/CTXSection";
 import ContactSection from "./components/contact";
 import Loader from './components/loader';
+import ChatBot from "./components/ChatBot"; // 👈 Import here
+
 
 const TripuraMap = dynamic(() => import("./components/TripuraMap"), {
   ssr: false,
@@ -57,8 +59,10 @@ const HomePage = () => {
         <TripuraTourismPage />
         {/* Contact */}
         <ContactSection/>
-        {/* Contact */}
+        {/* Footer */}
         <Footer />
+        {/* chatbot */}
+        <ChatBot />
       </div>
     </>
   );

@@ -88,7 +88,7 @@ export default function HotelsPage() {
   const [query, setQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(4);
   const [loading, setLoading] = useState(true);
-  const [navigating, setNavigating] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -97,7 +97,7 @@ export default function HotelsPage() {
   }, []);
 
   const handleLearnMore = (id) => {
-    setNavigating(true);
+    setIsNavigating(true);
     setTimeout(() => {
       router.push(`/details/${id}`);
     }, 1000);
@@ -109,8 +109,6 @@ export default function HotelsPage() {
   );
 
   const visibleHotels = filteredHotels.slice(0, visibleCount);
-
-  if (navigating) return <Loader />;
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
@@ -172,25 +170,36 @@ export default function HotelsPage() {
           </aside>
 
           <div className="flex-1 flex flex-col gap-8">
-            {loading
-              ? [...Array(4)].map((_, i) => (
+            {(loading || isNavigating)
+              ? [...Array(visibleCount)].map((_, i) => (
                   <div
                     key={i}
-                    className="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row gap-6"
+                    className="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 flex flex-col md:flex-row relative"
                   >
-                    <div className="w-full md:w-1/2">
-                      <Skeleton height={250} />
-                    </div>
-                    <div className="w-full md:w-1/2 flex flex-col justify-between">
+                    <div className="w-full md:w-1/2 p-6 flex flex-col justify-between z-10">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                          <Skeleton width={200} />
+                        <h3 className="text-3xl font-serif font-semibold text-gray-800 mb-3">
+                          <Skeleton width={220} />
                         </h3>
-                        <p className="text-sm mb-1"><Skeleton width={100} /></p>
-                        <p className="text-gray-500 mb-2"><Skeleton count={2} /></p>
-                        <p className="text-sm"><Skeleton width={150} /></p>
+                        <div className="flex items-center gap-4 text-green-700 mb-3 text-sm">
+                          <Skeleton width={80} />
+                          <Skeleton width={50} />
+                          <Skeleton width={50} />
+                        </div>
+                        <p className="text-green-700 text-sm font-semibold mb-2">
+                          <Skeleton width={150} />
+                        </p>
+                        <p className="text-gray-600 mb-4">
+                          <Skeleton width={200} />
+                        </p>
+                        <p className="text-gray-500 mb-5">
+                          <Skeleton count={2} />
+                        </p>
                       </div>
                       <Skeleton height={36} width={120} />
+                    </div>
+                    <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
+                      <Skeleton height="100%" />
                     </div>
                   </div>
                 ))
@@ -235,7 +244,7 @@ export default function HotelsPage() {
                   </div>
                 ))}
 
-            {visibleCount < filteredHotels.length && !loading && (
+            {visibleCount < filteredHotels.length && !(loading || isNavigating) && (
               <button
                 onClick={() => setVisibleCount((prev) => prev + 4)}
                 className="relative px-6 py-3 font-medium text-white group bg-green-700 rounded-md w-fit self-center mt-6 hover:bg-green-800 transition"
@@ -258,3 +267,4 @@ export default function HotelsPage() {
     </div>
   );
 }
+ 
