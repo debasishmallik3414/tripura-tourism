@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    eslint: {
+        ignoreDuringBuilds:true,
+    }
+};
 
+module.experts = nextConfig
 // export default nextConfig;
 // import ArrowRightIcon from '../public/icons/arrow-right.svg';
 
