@@ -16,11 +16,15 @@ import TripuraTourismPage from "./components/CTXSection";
 import ContactSection from "./components/contact";
 import Loader from './components/loader';
 import ChatBot from "./components/ChatBot"; // 👈 Import here
+import TripuraMap from "./components/TripuraMap";
 
+const Page = () => (
+  <section>
+    <h2 className="text-2xl font-bold">Explore Tripura</h2>
+    <TripuraMap />
+  </section>
+);
 
-const TripuraMap = dynamic(() => import("./components/TripuraMap"), {
-  ssr: false,
-});
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
