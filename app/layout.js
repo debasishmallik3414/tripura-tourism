@@ -3,7 +3,7 @@ import "./globals.css";
 // import "./styles/main.css";
 // import "remixicon/fonts/remixicon.css";
 // In your main layout or _app.jsx
-// import "leaflet/dist/leaflet.css";
+import "leaflet/dist/leaflet.css";
 import RouteChangeLoader from './components/RouteChangeLoader';
 
 import Navbar from "./components/Navbar";
