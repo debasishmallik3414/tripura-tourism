@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "./styles/main.css";
+// import "./styles/main.css";
 // import "remixicon/fonts/remixicon.css";
 // In your main layout or _app.jsx
 // import "leaflet/dist/leaflet.css";

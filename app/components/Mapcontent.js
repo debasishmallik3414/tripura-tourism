@@ -1,7 +1,9 @@
+"use client";
+
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 // Fix leaflet marker icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -27,15 +29,29 @@ const destinations = [
 ];
 
 const MapContent = () => {
+  const mapRef = useRef(null);
+
+  // Cleanup on unmount (for dev/hot reload)
+  useEffect(() => {
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+      }
+    };
+  }, []);
+
   return (
     <MapContainer
       center={[23.83, 91.28]}
       zoom={8}
       scrollWheelZoom={false}
       style={{ height: "500px", width: "100%" }}
+      whenCreated={(mapInstance) => {
+        mapRef.current = mapInstance;
+      }}
     >
       <TileLayer
-        attribution='&copy; OpenStreetMap contributors'
+        attribution="&copy; OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {destinations.map((place, index) => (
