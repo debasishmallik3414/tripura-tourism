@@ -8,7 +8,7 @@ import Loader from "../components/loader";
 const destinationsRow1 = [
   { keyword: "Heritage", place: "UNOKOTI", image: "/destination1.jpg" },
   { keyword: "Royal Retreat", place: "NEERMAHAL", image: "/destination2.jpg" },
-  { keyword: "Scenic Views", place: "JUMPAI HILLS", image: "/destination3.jpg" },
+  { keyword: "Scenic Views", place: "JUMPAI HILLS", image: "/jumpaihills1.png" },
   { keyword: "Wildlife", place: "SEPAHIJALA WILDLIFE SANCTUARY & ZOO", image: "/destination4.jpg" },
   { keyword: "Spiritual", place: "TRIPURA SUNDARI TEMPLE", image: "/destination5.jpeg" },
 ];

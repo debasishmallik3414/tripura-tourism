@@ -42,7 +42,7 @@ export default function ChatBot() {
   setMessages((prev) => [...prev, typingMsg]);
 
   try {
-    const res = await fetch('/api/gemini-chat', {
+    const res = await fetch('/api/groq-chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userInput }),
@@ -58,7 +58,7 @@ export default function ChatBot() {
   } catch (err) {
     setMessages((prev) => [
       ...prev.slice(0, -1),
-      { from: 'bot', text: '❌ Failed to fetch Gemini response.' },
+      { from: 'bot', text: '❌ Failed to fetch response.' },
     ]);
   }
 };
