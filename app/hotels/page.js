@@ -109,6 +109,16 @@ export default function HotelsPage() {
   );
 
   const visibleHotels = filteredHotels.slice(0, visibleCount);
+  const [loadingMore, setLoadingMore] = useState(false);
+
+const handleLoadMore = () => {
+  setLoadingMore(true);
+  setTimeout(() => {
+    setVisibleCount((prev) => prev + 4);
+    setLoadingMore(false);
+  }, 1000);
+};
+
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
@@ -227,11 +237,23 @@ export default function HotelsPage() {
                         </p>
                       </div>
                       <button
-                        onClick={() => handleLearnMore(hotel.id)}
-                        className="inline-block border border-green-700 text-green-700 px-5 py-2 text-sm font-medium rounded hover:bg-green-700 hover:text-white transition"
-                      >
-                        Learn More
-                      </button>
+  onClick={() => handleLearnMore(hotel.id)}
+  className="group relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-medium text-green-700 transition duration-300 ease-out border-2 border-green-700 rounded-md shadow-sm hover:shadow-lg hover:bg-green-700 hover:text-white"
+>
+  <span className="absolute inset-0 w-full h-full bg-green-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left z-0"></span>
+  <span className="relative z-10 flex items-center gap-2">
+    View Details
+    <svg
+      className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </span>
+</button>
                     </div>
                     <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
                       <Image
@@ -246,12 +268,12 @@ export default function HotelsPage() {
 
             {visibleCount < filteredHotels.length && !(loading || isNavigating) && (
               <button
-                onClick={() => setVisibleCount((prev) => prev + 4)}
-                className="relative px-6 py-3 font-medium text-white group bg-green-700 rounded-md w-fit self-center mt-6 hover:bg-green-800 transition"
-              >
-                <span className="absolute left-0 top-0 w-full h-full rounded-md bg-green-800 opacity-0 group-hover:opacity-100 transition"></span>
-                <span className="relative z-10">+ Load More</span>
-              </button>
+            onClick={handleLoadMore}
+            disabled={loadingMore}
+            className="px-5 py-2 text-sm font-medium text-white bg-green-700 rounded-md hover:bg-green-800 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+>
+         {loadingMore ? 'Loading...' : '+ Load More'}
+        </button>
             )}
 
             {!loading && filteredHotels.length === 0 && (
