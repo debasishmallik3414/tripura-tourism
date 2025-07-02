@@ -22,7 +22,7 @@ export default function SignUpPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center px-4 py-8"
-      style={{ backgroundImage: "url('/background.jpg')" }}
+      style={{ backgroundImage: "url('/background1.jpg')" }}
     >
       <div className="bg-white bg-opacity-40 rounded-lg shadow-lg flex flex-col md:flex-row w-full max-w-6xl overflow-hidden">
         {/* Left Panel */}

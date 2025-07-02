@@ -17,6 +17,7 @@ import ContactSection from "./components/contact";
 import Loader from './components/loader';
 import ChatBot from "./components/ChatBot"; // 👈 Import here
 import TripuraMap from "./components/TripuraMap";
+import TripuraPopup from "./components/TripuraPopup";
 
 const Page = () => (
   <section>
@@ -52,6 +53,8 @@ const HomePage = () => {
         />
       </Head>
       <div className="font-sans text-gray-800 scroll-smooth bg-gradient-to-b from-green-50 via-white to-green-100 ">
+        {/* popup */}
+        <TripuraPopup />
         {/* Navbar */}
         <NaviagationMenu />
         {/* Top Destinations */}
