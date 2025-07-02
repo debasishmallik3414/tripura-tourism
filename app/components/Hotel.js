@@ -1,40 +1,85 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const TopHotelDeals = () => {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
+  const firstRowHotels = [
+    {
+      image: "/hotel1.jpg",
+      name: "Hotel Polo Towers.",
+      location: "Agartala",
+      price: "₹7,999/night",
+      id: 1,
+    },
+    {
+      image: "/hotel2.jpg",
+      name: "Lake Side Resort Neermahal",
+      location: "Rudrasagar",
+      price: "₹3,499/night",
+      id: 2,
+    },
+  ];
+
+  const secondRowHotels = [
+    {
+      image: "/hotel3.png",
+      name: "Eden Tourist Lodge",
+      location: "Jampui Hills",
+      price: "₹2,499/night",
+      id: 3,
+    },
+    {
+      image: "/hotel4.jpg",
+      name: "Unakoti Tourist Lodge",
+      location: "Unakoti",
+      price: "₹1,999/night",
+      id: 4,
+    },
+    {
+      image: "/hotel5.jpg",
+      name: "Hotel Royal Inn",
+      location: "Udaipur",
+      price: "₹2,799/night",
+      id: 5,
+    },
+  ];
+
   return (
-    <section id="top-deals" className="py-12 px-4 bg-green-50">
-      <h2 className="text-3xl font-semibold text-center text-gray-800 mb-4">
+    <section
+      id="top-deals"
+      className="py-12 px-4 bg-green-50 scroll-mt-28"
+      data-aos="fade-up"
+    >
+      <h2
+        className="text-3xl font-semibold text-center text-gray-800 mb-4"
+        data-aos="fade-down"
+      >
         Top Hotel Deals
       </h2>
-      <p className="text-center text-gray-600 mb-8">
+      <p
+        className="text-center text-gray-600 mb-8"
+        data-aos="fade-down"
+        data-aos-delay="200"
+      >
         Discover the best places to stay in Tripura with unbeatable prices
       </p>
 
       <div className="max-w-6xl mx-auto grid gap-6">
         {/* First Row - 2 hotels */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            {
-              image: "/hotel1.jpg",
-              name: "Hotel Polo Towers.",
-              location: "Agartala",
-              price: "₹7,999/night",
-              id: 1,
-            },
-            {
-              image: "/hotel2.jpg",
-              name: "Lake Side Resort Neermahal",
-              location: "Rudrasagar",
-              price: "₹3,499/night",
-              id: 2,
-            },
-          ].map((hotel, i) => (
+          {firstRowHotels.map((hotel, i) => (
             <div
               key={i}
               className="relative rounded-xl overflow-hidden shadow hover:shadow-lg transition-transform hover:-translate-y-1"
+              data-aos="zoom-in"
+              data-aos-delay={i * 150}
             >
               <img
                 src={hotel.image}
@@ -62,32 +107,12 @@ const TopHotelDeals = () => {
 
         {/* Second Row - 3 hotels */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
-          {[
-            {
-              image: "/hotel3.png",
-              name: "Eden Tourist Lodge",
-              location: "Jampui Hills",
-              price: "₹2,499/night",
-              id: 3,
-            },
-            {
-              image: "/hotel4.jpg",
-              name: "Unakoti Tourist Lodge",
-              location: "Unakoti",
-              price: "₹1,999/night",
-              id: 4,
-            },
-            {
-              image: "/hotel5.jpg",
-              name: "Hotel Royal Inn",
-              location: "Udaipur",
-              price: "₹2,799/night",
-              id: 5,
-            },
-          ].map((hotel, i) => (
+          {secondRowHotels.map((hotel, i) => (
             <div
               key={i}
               className="relative rounded-xl overflow-hidden shadow hover:shadow-lg transition-transform hover:-translate-y-1"
+              data-aos="zoom-in"
+              data-aos-delay={i * 150 + 300}
             >
               <img
                 src={hotel.image}
@@ -115,32 +140,27 @@ const TopHotelDeals = () => {
       </div>
 
       {/* CTA Button */}
-      {/* <div className="flex justify-end mt-8 max-w-6xl mx-auto px-2">
+      <div
+        className="flex justify-end mt-8 max-w-6xl mx-auto px-2"
+        data-aos="fade-left"
+        data-aos-delay="600"
+      >
         <Link
           href="/hotels"
-          className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition"
+          className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300 group"
         >
-          View All →
+          <span>Explore Hotels</span>
+          <svg
+            className="w-4 h-4 transition-transform duration-300 transform group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
         </Link>
-      </div> */}
-     <div className="flex justify-end mt-8 max-w-6xl mx-auto px-2">
-  <Link
-    href="/hotels"
-    className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300 group"
-  >
-    <span>Explore Hotels</span>
-    <svg
-      className="w-4 h-4 transition-transform duration-300 transform group-hover:translate-x-1"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
-  </Link>
-</div>
-
+      </div>
     </section>
   );
 };

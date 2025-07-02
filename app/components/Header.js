@@ -29,22 +29,17 @@ const HeaderMenu = () => {
           </a>
         </li>
         <li>
-          <a href="#features" className="hover:text-green-400">
+          <a href="#Features" className="hover:text-green-400">
             Features
           </a>
         </li>
         <li>
-          <a href="#top-destination" className="hover:text-green-400">
+          <a href="#TopDestination" className="hover:text-green-400">
             Place
           </a>
         </li>
         <li>
-          <a href="#about" className="hover:text-green-400">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#contact" className="hover:text-green-400">
+          <a href="#contact" className="hover:text-green-400 ">
             Contact
           </a>
         </li>

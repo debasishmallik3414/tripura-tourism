@@ -1,10 +1,12 @@
 "use client";
-import React, { use, useState } from "react";
 
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import HeaderMenu from "./Header";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
+import AOS from "aos";
+import "aos/dist/aos.css";
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/autoplay';
@@ -26,6 +28,10 @@ export default function NavbarHero() {
   const router = useRouter();
   const [query, setQuery] = useState("");
 
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
@@ -34,7 +40,7 @@ export default function NavbarHero() {
   };
 
   return (
-    <div className="relative h-[90vh] w-full">
+    <div className="relative h-screen w-full">
       {/* Background Swiper Slider */}
       <Swiper
         modules={[Autoplay, EffectFade]}
@@ -54,32 +60,48 @@ export default function NavbarHero() {
       </Swiper>
 
       {/* Overlay Content */}
-      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4 z-10">
-        <HeaderMenu />
-        <h1 className="text-white text-3xl md:text-5xl font-bold mb-2 animate-fade-in">
-          <span className="text-yellow-400">EXPLORE THE BEAUTY</span> OF TRIPURA
-        </h1>
-        <p className="text-gray-200 text-md md:text-lg font-medium mb-6 animate-fade-in delay-200">
-          Discover hidden gems, ancient heritage, and breathtaking landscapes across Tripura.
-        </p>
-        <form
-          onSubmit={handleSearch}
-          className="flex w-full max-w-xl rounded-full overflow-hidden bg-white shadow-lg animate-fade-in delay-500"
-        >
-          <input
-            type="text"
-            placeholder="Search places or enter your email"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 px-4 py-3 text-gray-700 focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="bg-orange-500 text-white font-bold px-6 py-3 hover:bg-orange-600 transition"
+      <div className="absolute inset-0 bg-black/50 z-10">
+        <div className="w-full">
+          <HeaderMenu /> {/* This should have position: relative and be spaced from content */}
+        </div>
+
+        <div className="flex flex-col items-center justify-center h-[80%] text-center px-4">
+          <h1
+            data-aos="fade-up"
+            className="text-white text-3xl md:text-5xl font-bold mb-2"
           >
-            Explore
-          </button>
-        </form>
+            <span className="text-yellow-400">EXPLORE THE BEAUTY</span> OF TRIPURA
+          </h1>
+
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-gray-200 text-md md:text-lg font-medium mb-6"
+          >
+            Discover hidden gems, ancient heritage, and breathtaking landscapes across Tripura.
+          </p>
+
+          <form
+            onSubmit={handleSearch}
+            data-aos="fade-up"
+            data-aos-delay="400"
+            className="flex w-full max-w-xl rounded-full overflow-hidden bg-white shadow-lg"
+          >
+            <input
+              type="text"
+              placeholder="Search places or enter your email"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="flex-1 px-4 py-3 text-gray-700 focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="bg-orange-500 text-white font-bold px-6 py-3 hover:bg-orange-600 transition"
+            >
+              Explore
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@
     "@google/generative-ai": "^0.24.1",
     "@heroicons/react": "^2.2.0",
     "@svgr/webpack": "^8.1.0",
+    "aos": "^2.3.4",
     "axios": "^1.10.0",
     "leaflet": "^1.9.4",
     "lightningcss": "^1.25.0",

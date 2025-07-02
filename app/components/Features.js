@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const activities = [
   {
     title: "Trekking",
-    image: "/icons/trekking.png", // replace with actual file
+    image: "/icons/trekking.png",
     description: "Explore exciting trekking opportunities in Tripura.",
   },
   {
@@ -22,9 +24,13 @@ const activities = [
 ];
 
 const FeatureSection = () => {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   return (
-    <section className="bg-gray-50 py-16 px-6">
-      <h2 className="text-3xl font-bold mb-10 text-center">
+    <section id="Features" data-aos="fade-up" className="bg-gray-50 py-16 px-6 scroll-mt-28">
+      <h2 className="text-3xl font-bold mb-10 text-center" data-aos="fade-down">
         Activities & Experiences
       </h2>
       <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
@@ -32,6 +38,8 @@ const FeatureSection = () => {
           <div
             key={idx}
             className="bg-white shadow-md rounded-xl p-6 text-center"
+            data-aos="zoom-in"
+            data-aos-delay={idx * 100}
           >
             <Image
               src={item.image}

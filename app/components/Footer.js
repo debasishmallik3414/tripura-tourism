@@ -1,11 +1,25 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Footer = () => {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   return (
-    <footer id="about" className="bg-gray-900 text-gray-300 py-12 px-4">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <footer
+      id="about"
+      data-aos="fade-up"
+      className="bg-gray-900 text-gray-300 py-12 px-4 scroll-mt-28"
+    >
+      <div
+        className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
+      >
         {/* Company Info */}
-        <div>
+        <div data-aos="fade-right" data-aos-delay="100">
           <h4 className="text-lg font-semibold mb-4 text-white">
             Tripura Tourism
           </h4>
@@ -15,60 +29,30 @@ const Footer = () => {
           </p>
 
           {/* Social Links */}
-          <div className="flex gap-3 mt-4">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-500"
-            >
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-pink-500"
-            >
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-sky-400"
-            >
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-300"
-            >
-              <i className="fab fa-linkedin-in"></i>
-            </a>
-            <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-red-500"
-            >
-              <i className="fab fa-youtube"></i>
-            </a>
-            <a
-              href="https://pinterest.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-red-400"
-            >
-              <i className="fab fa-pinterest-p"></i>
-            </a>
+          <div className="flex gap-3 mt-4 text-lg">
+            {[
+              { href: "https://facebook.com", icon: "facebook-f", color: "text-blue-500" },
+              { href: "https://instagram.com", icon: "instagram", color: "text-pink-500" },
+              { href: "https://twitter.com", icon: "twitter", color: "text-sky-400" },
+              { href: "https://linkedin.com", icon: "linkedin-in", color: "text-blue-300" },
+              { href: "https://youtube.com", icon: "youtube", color: "text-red-500" },
+              { href: "https://pinterest.com", icon: "pinterest-p", color: "text-red-400" },
+            ].map((item, i) => (
+              <a
+                key={i}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`hover:${item.color} transition duration-300`}
+              >
+                <i className={`fab fa-${item.icon}`}></i>
+              </a>
+            ))}
           </div>
         </div>
 
         {/* Blogs */}
-        <div>
+        <div data-aos="fade-up" data-aos-delay="200">
           <h4 className="text-lg font-semibold mb-4 text-white">Blogs</h4>
           <ul className="space-y-2 text-sm">
             <li>
@@ -90,7 +74,7 @@ const Footer = () => {
         </div>
 
         {/* Contact Info */}
-        <div>
+        <div data-aos="fade-up" data-aos-delay="300">
           <h4 className="text-lg font-semibold mb-4 text-white">Contact</h4>
           <ul className="text-sm space-y-2">
             <li>📍 Agartala, Tripura</li>
@@ -105,7 +89,7 @@ const Footer = () => {
         </div>
 
         {/* Recent Trips Gallery */}
-        <div>
+        <div data-aos="fade-left" data-aos-delay="400">
           <h4 className="text-lg font-semibold mb-4 text-white">
             Recent Trips
           </h4>
@@ -115,7 +99,7 @@ const Footer = () => {
                 key={i}
                 src={`/gallery${(i % 6) + 1}.jpg`}
                 alt={`Trip ${i}`}
-                className="w-full h-16 object-cover rounded"
+                className="w-full h-16 object-cover rounded hover:scale-105 transition-transform duration-300"
               />
             ))}
           </div>
@@ -123,7 +107,11 @@ const Footer = () => {
       </div>
 
       {/* Bottom strip */}
-      <div className="border-t border-gray-700 mt-10 pt-4 text-center text-sm text-gray-400">
+      <div
+        className="border-t border-gray-700 mt-10 pt-4 text-center text-sm text-gray-400"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
         © 2025 Tripura Tourism. All rights reserved.
       </div>
     </footer>

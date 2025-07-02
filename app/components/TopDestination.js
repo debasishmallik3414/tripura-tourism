@@ -4,6 +4,8 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "../components/loader";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const destinationsRow1 = [
   { keyword: "Heritage", place: "UNOKOTI", image: "/destination1.jpg" },
@@ -23,12 +25,14 @@ const PopularDestinations = () => {
       router.push("/destination");
     }, 1000); // Optional delay for loader effect
   };
-
+useEffect(() => {
+  AOS.init({ duration: 1000, once: true });
+}, []);
   if (loading) return <Loader />;
 
   return (
-    <section className="py-12 px-4 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-bold text-center text-blue-900 mb-10">
+    <section id='TopDestination' data-aos="fade-up"className="py-12 px-4 bg-gray-100 min-h-screen scroll-mt-28">
+      <h2 className="text-3xl font-bold text-center text-blue-900 mb-10" data-aos="fade-down">
         Popular Destinations
       </h2>
 

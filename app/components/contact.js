@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import {useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import {
   UserIcon,
   EnvelopeIcon,
@@ -19,7 +21,9 @@ export default function ContactSection() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+useEffect(() => {
+  AOS.init({ duration: 1000, once: true });
+}, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
@@ -47,8 +51,8 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-12 px-4 bg-gray-50">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
+    <section id="contact" data-aos="fade-up" className="py-12 px-4 bg-gray-50 scroll-mt-28 ">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10 " data-aos="fade-down">
         Get in Touch
       </h2>
 
