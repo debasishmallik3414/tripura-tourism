@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import HeaderMenu from "./Header";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
 import AOS from "aos";
+
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/autoplay";
 import "aos/dist/aos.css";
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/autoplay';
 
 const slides = [
   "/banner6.jpg",
@@ -27,9 +28,29 @@ const slides = [
 export default function NavbarHero() {
   const router = useRouter();
   const [query, setQuery] = useState("");
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+
+  const placeholders = [
+    "Uncover Tripura’s best-kept secrets...",
+    "Where to next in Tripura?",
+    "Search ancient wonders or modern comforts...",
+    "Discover places that inspire...",
+    "Type a destination or dream stay...",
+    "Discover places that inspire...",
+    "Uncover Tripura’s best-kept secrets...",
+    "Search ancient wonders or modern comforts...",
+    "Find your perfect spot in Tripura..."
+  ];
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlaceholderIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
+    }, 3000); // Rotate every 3 seconds
+    return () => clearInterval(interval);
   }, []);
 
   const handleSearch = (e) => {
@@ -41,7 +62,7 @@ export default function NavbarHero() {
 
   return (
     <div className="relative h-screen w-full">
-      {/* Background Swiper Slider */}
+      {/* Background Slider */}
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect="fade"
@@ -62,7 +83,7 @@ export default function NavbarHero() {
       {/* Overlay Content */}
       <div className="absolute inset-0 bg-black/50 z-10">
         <div className="w-full">
-          <HeaderMenu /> {/* This should have position: relative and be spaced from content */}
+          <HeaderMenu />
         </div>
 
         <div className="flex flex-col items-center justify-center h-[80%] text-center px-4">
@@ -89,7 +110,7 @@ export default function NavbarHero() {
           >
             <input
               type="text"
-              placeholder="Search places or enter your email"
+              placeholder={placeholders[placeholderIndex]}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="flex-1 px-4 py-3 text-gray-700 focus:outline-none"

@@ -76,7 +76,7 @@ const TripuraPopup = () => {
 
         {/* Text Content */}
         <h2 className="text-xl font-bold text-center text-gray-800">
-          Discover the Wonders of Tripura!
+          Welcome Back to Tripura Tourism <br />Discover the Wonders of Tripura!
         </h2>
         <p className="text-center text-gray-600 mt-2 text-sm">
           Explore lush valleys, ancient temples, royal palaces and vibrant cultures — all in one trip.
